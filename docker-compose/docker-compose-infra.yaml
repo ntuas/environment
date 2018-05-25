@@ -67,7 +67,7 @@ services:
           - nexus3.${DOMAIN_NAME}
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0.3
     restart: unless-stopped
     hostname: mysql
     environment:
