@@ -2,69 +2,69 @@
 version: '3.4'
 
 services:
-  consul:
-    image: consul
-    restart: unless-stopped
-    hostname: consul
-    labels:
-      SERVICE_8300_NAME: "consul"
-      SERVICE_8301_IGNORE: "true"
-      SERVICE_8302_IGNORE: "true"
-      SERVICE_8500_NAME: "consul-http"
-      SERVICE_8500_TAGS: "traefik.enable=true"
-      SERVICE_8600_NAME: "consul-dns"
-    environment:
-      CONSUL_BIND_INTERFACE: 'eth0'
-      CONSUL_LOCAL_CONFIG: '{ "ui": true,  "domain": "${CONSUL_DOMAIN_NAME}"}'
-    ports:
-      - 8500:8500
-    networks:
-      default:
-        aliases:
-          - consul.${DOMAIN_NAME}
-
-  consul-registrator:
-    image: gliderlabs/registrator
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-    command: ["-internal", "consul://consul:8500"]
-    networks:
-      default:
-
-  traefik:
-    image: traefik
-    restart: unless-stopped
-    hostname: traefik
-    labels:
-      SERVICE_80_NAME: "traefik"
-      SERVICE_8080_NAME: "traefik-http"
-      SERVICE_8080_TAGS: "traefik.enable=true"
-    volumes:
-      - ./volume/infra/traefik/etc/traefik.toml:/etc/traefik/traefik.toml
-    expose:
-      - "8080"
-    networks:
-      default:
-        aliases:
-          - traefik.${DOMAIN_NAME}
-
-  nexus3:
-    image: sonatype/nexus3
-    restart: unless-stopped
-    hostname: nexus3
-    labels:
-      SERVICE_8081_NAME: "nexus3"
-      SERVICE_8081_TAGS: "traefik.enable=true"
-      SERVICE_8082_NAME: "dockerregistry"
-      SERVICE_8082_TAGS: "traefik.enable=true"
-    expose:
-      - "8081"
-      - "8082"
-    networks:
-      default:
-        aliases:
-          - nexus3.${DOMAIN_NAME}
+#  consul:
+#    image: consul
+#    restart: unless-stopped
+#    hostname: consul
+#    labels:
+#      SERVICE_8300_NAME: "consul"
+#      SERVICE_8301_IGNORE: "true"
+#      SERVICE_8302_IGNORE: "true"
+#      SERVICE_8500_NAME: "consul-http"
+#      SERVICE_8500_TAGS: "traefik.enable=true"
+#      SERVICE_8600_NAME: "consul-dns"
+#    environment:
+#      CONSUL_BIND_INTERFACE: 'eth0'
+#      CONSUL_LOCAL_CONFIG: '{ "ui": true,  "domain": "${CONSUL_DOMAIN_NAME}"}'
+#    ports:
+#      - 8500:8500
+#    networks:
+#      default:
+#        aliases:
+#          - consul.${DOMAIN_NAME}
+#
+#  consul-registrator:
+#    image: gliderlabs/registrator
+#    restart: unless-stopped
+#    volumes:
+#      - /var/run/docker.sock:/tmp/docker.sock
+#    command: ["-internal", "consul://consul:8500"]
+#    networks:
+#      default:
+#
+#  traefik:
+#    image: traefik
+#    restart: unless-stopped
+#    hostname: traefik
+#    labels:
+#      SERVICE_80_NAME: "traefik"
+#      SERVICE_8080_NAME: "traefik-http"
+#      SERVICE_8080_TAGS: "traefik.enable=true"
+#    volumes:
+#      - ./volume/infra/traefik/etc/traefik.toml:/etc/traefik/traefik.toml
+#    expose:
+#      - "8080"
+#    networks:
+#      default:
+#        aliases:
+#          - traefik.${DOMAIN_NAME}
+#
+#  nexus3:
+#    image: sonatype/nexus3
+#    restart: unless-stopped
+#    hostname: nexus3
+#    labels:
+#      SERVICE_8081_NAME: "nexus3"
+#      SERVICE_8081_TAGS: "traefik.enable=true"
+#      SERVICE_8082_NAME: "dockerregistry"
+#      SERVICE_8082_TAGS: "traefik.enable=true"
+#    expose:
+#      - "8081"
+#      - "8082"
+#    networks:
+#      default:
+#        aliases:
+#          - nexus3.${DOMAIN_NAME}
 
   mysql:
     image: mysql:8.0.3

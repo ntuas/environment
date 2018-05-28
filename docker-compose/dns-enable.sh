@@ -11,11 +11,11 @@ function dns_enable () {
     start_service "dns"
     add_as_dns_to_host_dnsmasq ${DOMAIN_NAME} "dns" 53
 
-    start_service "consul"
-    add_as_dns_to_host_dnsmasq ${CONSUL_DOMAIN_NAME} "consul" 8600
-
-    start_service "traefik"
-    add_as_address_to_host_dnsmasq ${PUBLIC_DOMAIN_NAME} "traefik"
+#    start_service "consul"
+#    add_as_dns_to_host_dnsmasq ${CONSUL_DOMAIN_NAME} "consul" 8600
+#
+#    start_service "traefik"
+#    add_as_address_to_host_dnsmasq ${PUBLIC_DOMAIN_NAME} "traefik"
 }
 
 function start_service () {
