@@ -1,6 +1,6 @@
 = Environment
 
-The platform for the ntuas services.
+The platform for the NTUAS services.
 
 == Docker-Compose
 
